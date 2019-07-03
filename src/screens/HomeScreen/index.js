@@ -15,7 +15,6 @@ class HomeScreen extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            cryptoCurrencyData: [],
             refreshing: true
         };
     }
@@ -25,8 +24,8 @@ class HomeScreen extends React.Component {
         //fetching cryptocurrency data 
         fetchApi(ApiConstants.LATEST_CRYPTOCURRENCY)
             .then((responseJson) => {
-                this.props.getCryptocurrencies(responseJson.data)
                 this.setState({ refreshing: false })
+                this.props.getCryptocurrencies(responseJson.data)
             }).catch((error) => {
                 this.setState({ refreshing: false });
                 console.log(error)
@@ -39,8 +38,8 @@ class HomeScreen extends React.Component {
         //getting the cryptocurrency data on refresh
         fetchApi(ApiConstants.LATEST_CRYPTOCURRENCY)
             .then((responseJson) => {
-                this.props.getCryptocurrencies(responseJson.data)
                 this.setState({ refreshing: false })
+                this.props.getCryptocurrencies(responseJson.data)
             }).catch((error) => {
                 this.setState({ refreshing: false });
                 console.log(error)
@@ -48,8 +47,8 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        const { cryptoCurrencyData } = this.state;
-        console.log('data', cryptoCurrencyData)
+        const { cryptoCurrencyData } = this.props
+        console.log(cryptoCurrencyData)
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -74,7 +73,6 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('here',state.cryptocurrencyReducer.cryptocurrencyData)
     return {
         cryptoCurrencyData: state.cryptocurrencyReducer.cryptocurrencyData
     }
